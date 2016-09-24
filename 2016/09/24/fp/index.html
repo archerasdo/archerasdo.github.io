@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>函数式编程（一） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="函数式编程初探让我们来看一下命令是编程和函数式编程的区别
+ex:
+1（1 + 2）* 3 - 4
+过程式编程是这样：
+123var a = 1 + 2var b = a * 3var c = b - 4
+函数式编程是这样的：
+1var result = sub(multi(3,add(1,2)),4)
+函数式编程过程中，每个步骤都是单纯的表达式计算，都有返回值，和命令式语句say good bye">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程（一）">
+<meta property="og:url" content="http://yoursite.com/2016/09/24/fp/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="函数式编程初探让我们来看一下命令是编程和函数式编程的区别
+ex:
+1（1 + 2）* 3 - 4
+过程式编程是这样：
+123var a = 1 + 2var b = a * 3var c = b - 4
+函数式编程是这样的：
+1var result = sub(multi(3,add(1,2)),4)
+函数式编程过程中，每个步骤都是单纯的表达式计算，都有返回值，和命令式语句say good bye">
+<meta property="og:updated_time" content="2016-09-24T06:06:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式编程（一）">
+<meta name="twitter:description" content="函数式编程初探让我们来看一下命令是编程和函数式编程的区别
+ex:
+1（1 + 2）* 3 - 4
+过程式编程是这样：
+123var a = 1 + 2var b = a * 3var c = b - 4
+函数式编程是这样的：
+1var result = sub(multi(3,add(1,2)),4)
+函数式编程过程中，每个步骤都是单纯的表达式计算，都有返回值，和命令式语句say good bye">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-fp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/24/fp/" class="article-date">
+  <time datetime="2016-09-24T05:55:54.000Z" itemprop="datePublished">2016-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      函数式编程（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="函数式编程初探"><a href="#函数式编程初探" class="headerlink" title="函数式编程初探"></a>函数式编程初探</h3><p>让我们来看一下命令是编程和函数式编程的区别</p>
+<p>ex:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">（<span class="number">1</span> + <span class="number">2</span>）* <span class="number">3</span> - <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>过程式编程是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="number">1</span> + <span class="number">2</span></div><div class="line"><span class="keyword">var</span> b = a * <span class="number">3</span></div><div class="line"><span class="keyword">var</span> c = b - <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>函数式编程是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result = sub(multi(<span class="number">3</span>,add(<span class="number">1</span>,<span class="number">2</span>)),<span class="number">4</span>)</div></pre></td></tr></table></figure>
+<p>函数式编程过程中，每个步骤都是单纯的表达式计算，都有返回值，和命令式语句say good bye，看起来是不是瞬间逼格提升了好多</p>
+<p>因此函数式编程语言中，函数并不神秘，其唯一作用就是对表达是求值。而函数式编程本身也就是不断的表达式计算求值的过程。</p>
+<h4 id="好处都有啥"><a href="#好处都有啥" class="headerlink" title="好处都有啥"></a>好处都有啥</h4><p>1.清楚直观，妈妈再也不用担心我为变量取名而绞尽脑汁了，贴近自然语言，易于维护，能够节省大量的代码量，上节的例子就很好的反映了这点</p>
+<p>2.没有副作用<br>这点需要解释一下，简而言之，函数式编程致力于保持函数的纯净，不包含任何对外部引用的操作，没有副作用的纯净函数即是引用透明的，所有的依赖都来自函数入参。可以将其看成一个黑盒，仅关心输入输出值即可。利用这一点，函数式编程能够进行很好的单元测试。<br>纯净函数:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>非纯净函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用隐式的方式与外部进行数据交互</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	a = <span class="number">5</span></div><div class="line">	<span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.immutable 不可变</p>
+<p>程序员讨厌无法控制的东西，比如js中的对象。<br>ex:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;name:<span class="string">"cassie"</span>&#125;</div><div class="line"><span class="keyword">var</span> b = a</div><div class="line">b.name = <span class="string">"mike"</span></div><div class="line"><span class="built_in">console</span>.log(a) <span class="comment">// &#123;name:"mike"&#125;</span></div></pre></td></tr></table></figure>
+<p>函数式编程提倡将程序中变化的东西最小化，使用immutable的数据。从根本上可以防止一些灵异事件的发生，减少需要追踪的记录。并且由于数据的不可变，可以视其为状态机，通过递进状态与回朔状态来保证程序逻辑可控。react就是这么玩的。<br>js中为了实践Immutable，也出现了immutable.js这类框架。</p>
+<p>在不使用框架的前提下，结合es5,es6可以通过以下方式来保持immutable</p>
+<ul>
+<li>鼓励禁用var/let，所有东西都用const定义，强制immutable。但是注意const只能防止变量被赋值，引用对象的改变仍可以生效。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</div><div class="line">a.push(<span class="number">4</span>)</div><div class="line"><span class="built_in">console</span>.log（a） <span class="comment">// [1,2,3,4]</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>数组使用map,filter,reduce方法执行循环，使用concat代替push</p>
+</li>
+<li><p>对象使用assign 来产生新对象而非直接编辑对象</p>
+</li>
+</ul>
+<p>4.引用透明</p>
+<p>引用透明即如果提供同样的输入，那么函数总是返回同样的结果，概念和没有副作用差不多，他俩本身是息息相关的，但是却能够带来一个非常便利的特性。由于纯净函数不依赖于外部环境而只对传入参数进行表达式计算，那么我们就可以通过函数入参来保存函数运算过程中的状态，把所有状态整合到最后一次表达式计算中，也即尾调用。<br>以经典问题斐波那契数列为例。众所周知斐波那契数列的函数表达式为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f(n) = f(n<span class="number">-1</span>) + f(n<span class="number">-2</span>)</div></pre></td></tr></table></figure>
+<p>用递归写出来是这样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> n &lt; <span class="number">2</span> ? n : fib(n<span class="number">-1</span>) + fib(n<span class="number">-2</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>虽然方法看上去非常的优雅，但是n较大时递归会拖长整个调用栈从而溢出。然而函数式编程中通过函数入参来保存变量状态的思路能够很好地解决这个问题。只需要将本次递归中需要保存的状态直接扔到内层递归中去,这样堆栈调用记录中只有一项，杜绝了内存溢出的可能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n,a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> n &lt; <span class="number">2</span> ? a : fib(n<span class="number">-1</span>,b,a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="函数Curry化"><a href="#函数Curry化" class="headerlink" title="函数Curry化"></a>函数Curry化</h4><p>此处Curry并非是勇士当家球星Steve Curry,而是一个著名的美国数学家、逻辑学家Haskell Curry。为了纪念这位先哲，便将Curry化的概念以其命名。</p>
+<p>为了介绍Curry化的概念，我们先来介绍一下高阶函数的概念。</p>
+<h5 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h5><p>何为高阶函数？先回想一个我们学过的数学知识：</p>
+<p><code>y‘ = g(x)</code> 对函数y=y(x)求导后其形式仍可表达为x的函数,代表一个函数到另一个函数的映射</p>
+<p>高阶函数的概念可以说与其基本一致，其形式可以表达为</p>
+<p><code>HOF: function =&gt; function</code></p>
+<p>表示成返回函数的函数，用js 描述一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">HOF</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> doSomethind() &#123;</div><div class="line">		...x</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>了解了高阶函数后，再回到Curry化的话题上来,此处我们不以特定语言为载体，仅讨论编程思想</p>
+<p>先仍以add函数作为引子，以伪代码表示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add: （a，b） =&gt; a + b</div></pre></td></tr></table></figure>
+<p>add函数接受两个参数，返回两者相加的值。</p>
+<p>那么如果我想add函数一次只接受一个变量，但仍然要完成add的功能怎么办，<br>其实只要把相加分步骤执行就可以了,表现为一个接受第二个参数并且返回两者相加函数的高阶函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add: a =&gt; ( b =&gt; a+b )</div></pre></td></tr></table></figure>
+<p>因此函数Curry化可以看成是这样一个过程</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curry: (a,b) =&gt; a + b  -&gt; a =&gt; b =&gt; a + b</div></pre></td></tr></table></figure>
+<p>那么问题又来了，Curry化的意义何在？在我刚开始学js时，学到Curry化这块觉得根本没什么卵用，但是现在被函数式编程思想有所启蒙以后发现这东西还是相当给力的。将多参的函数简化成一次仅处理一个参数的函数配合immutable可以很好的追踪变量来讨论代码中的问题，更好地去迎合单元测试。</p>
+<p>当然并不是所有场景都使用Curry化的。<br>个人认为当函数中的参数必须成对出现才有意义时，是不适用Curry化的。</p>
+<p>个人觉得Curry这种做法是为了更贴近元语言编程的习惯而制定的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/24/fp/" data-id="citgsa03b0000uy84ksuuor6c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/09/24/fp/">函数式编程（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
