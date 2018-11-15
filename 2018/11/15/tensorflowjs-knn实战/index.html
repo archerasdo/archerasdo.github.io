@@ -3,14 +3,52 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>tensorflowjs knn实战 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="tensorflowjs knn实战在机器学习和智能算法大热的时代，不甘于寂寞的前端同学们也开始涉足智能领域，各种sketch2code层出不穷，那么让我们从基础开始一步步揭开智能算法的神秘面纱。
+分类在机器学习领域，一个实际场景的问题往往会被划分成回归、分类、聚类问题，其中又属分类问题最为常见。今天我们就来了解一下什么是分类、并且怎么解决一个分类问题。
+定义first of all.我们先来学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tensorflowjs knn实战">
+<meta property="og:url" content="http://yoursite.com/2018/11/15/tensorflowjs-knn实战/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="tensorflowjs knn实战在机器学习和智能算法大热的时代，不甘于寂寞的前端同学们也开始涉足智能领域，各种sketch2code层出不穷，那么让我们从基础开始一步步揭开智能算法的神秘面纱。
+分类在机器学习领域，一个实际场景的问题往往会被划分成回归、分类、聚类问题，其中又属分类问题最为常见。今天我们就来了解一下什么是分类、并且怎么解决一个分类问题。
+定义first of all.我们先来学习">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/96f6c0781636835ff7d0c2031785fd85bfdf63ae">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/e8518a4bd2334b23780a251a54df9c43fd67a26c">
+<meta property="og:image" content="https://github.com/Huayet/guidetodatamining/raw/master/img/chapter-2/chapter-2-4.png">
+<meta property="og:image" content="https://github.com/Huayet/guidetodatamining/raw/master/img/chapter-2/chapter-2-3.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/300px-Manhattan_distance.svg.png">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/5ab487e3c5724cc7a295b6e1d57afe9bd39a8744">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/5ceed701c4042bb34618535c9a902ca1a937a351">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=X%3D%5BX_1%2C+...X_n%5D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=Y%3D%5BY_1%2C+...Y_n%5D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%5E2%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-0%29%5E2%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-%5Cmu_X%29%5E2%7D%3D%28n-1%29%5Csigma_X%5E2%3Dn-1">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=n-1%5Crightarrow+n">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csum_%7Bi%3D1%7D%5E%7Bt%7D%7BX_i%5E2%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bt%7D%7BY_i%5E2%7D%3D+n">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=d%28X%2CY%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_n-Y_n%29%5E2%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cbegin%7Bequation%7D+%5Cbegin%7Bsplit%7D+d%28X%2CY%29%26%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_n-Y_n%29%5E2%7D+%5C%5C+%26%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%7D%5E2+-+2+%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%2B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BY_i%7D%5E2+%5C%5C+%26%3D+2n+-+2+%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%5C%5C+%26%3D2n%281-%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%29%5C%5C+%26%3D2n%281-%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-0%29%28Y_i-0%29%7D%7D%7B1%5Ccdot1%7D%29%5C%5C+%26%3D2n%281-%5Cfrac%7BE%5B%28X-%5Cmu_X%29%28Y-%5Cmu_Y%29%5D%7D%7B%5Csigma_X%5Csigma_Y%7D%5C%5C+%26%3D+2n%281-%5Crho%28X%2CY%29%29+%5Cend%7Bsplit%7D+%5Cend%7Bequation%7D+">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Crho%28X%2CY%29%3D%5Cfrac%7BE%5B%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%5D%7D%7B%5Csigma_X%5Csigma_Y%7D+%3D%5Cfrac%7BE%5B%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%5D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-%5Cmu_X%29%5E2%7D%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28Y_i-%5Cmu_Y%29%5E2%7D%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=c%28X%2CY%29%3D%5Cfrac%7BX%5Ccdot+Y%7D%7B%5Cleft%7C+X+%5Cright%7C%5Cleft%7C+Y+%5Cright%7C%7D+%3D%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%5E2%7D%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BY_i%5E2%7D%7D%7D">
+<meta property="og:image" content="https://www.biaodianfu.com/wp-content/uploads/2018/05/cos-formule.png">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=c%28X%2CY%29%3D%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%5E2%7D%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BY_i%5E2%7D%7D%7D+%3D%5Cfrac%7Bz%28X%29%5Ccdot+z%28Y%29%7D%7B%5Cleft%7C+z%28X%29+%5Cright%7C%5Cleft%7C+z%28Y%29+%5Cright%7C%7D">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1NJREopzqK1RjSZFoXXbfcXXa-182-439.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB14FCgpHvpK1RjSZFqXXcXUVXa-1001-968.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1YjxToAzoK1RjSZFlXXai4VXa-536-343.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1DhXRoAvoK1RjSZFNXXcxMVXa-690-782.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1sLpPoAvoK1RjSZFNXXcxMVXa-914-741.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1oVJSosfpK1RjSZFOXXa6nFXa-1121-775.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1fOpSoq6qK1RjSZFmXXX0PFXa-1184-774.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1ZglTorvpK1RjSZPiXXbmwXXa-964-446.png">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1x1tRosbpK1RjSZFyXXX_qFXa-1136-807.png">
+<meta property="og:updated_time" content="2018-11-15T10:11:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="tensorflowjs knn实战">
+<meta name="twitter:description" content="tensorflowjs knn实战在机器学习和智能算法大热的时代，不甘于寂寞的前端同学们也开始涉足智能领域，各种sketch2code层出不穷，那么让我们从基础开始一步步揭开智能算法的神秘面纱。
+分类在机器学习领域，一个实际场景的问题往往会被划分成回归、分类、聚类问题，其中又属分类问题最为常见。今天我们就来了解一下什么是分类、并且怎么解决一个分类问题。
+定义first of all.我们先来学习">
+<meta name="twitter:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/96f6c0781636835ff7d0c2031785fd85bfdf63ae">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,9 +97,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-tensorflowjs-knn实战" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-tensorflowjs-knn实战" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/15/tensorflowjs-knn实战/" class="article-date">
   <time datetime="2018-11-15T10:10:34.000Z" itemprop="datePublished">2018-11-15</time>
@@ -74,8 +110,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/15/tensorflowjs-knn实战/">tensorflowjs knn实战</a>
+    <h1 class="article-title" itemprop="name">
+      tensorflowjs knn实战
     </h1>
   
 
@@ -188,146 +224,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-fp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/24/fp/" class="article-date">
-  <time datetime="2016-09-24T05:55:54.000Z" itemprop="datePublished">2016-09-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/24/fp/">函数式编程（一）</a>
-    </h1>
+    <a href="/2016/09/24/fp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Предыдущий</strong>
+      <div class="article-nav-title">函数式编程（一）</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="函数式编程初探"><a href="#函数式编程初探" class="headerlink" title="函数式编程初探"></a>函数式编程初探</h3><p>让我们来看一下命令是编程和函数式编程的区别</p>
-<p>ex:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">（<span class="number">1</span> + <span class="number">2</span>）* <span class="number">3</span> - <span class="number">4</span></div></pre></td></tr></table></figure>
-<p>过程式编程是这样：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="number">1</span> + <span class="number">2</span></div><div class="line"><span class="keyword">var</span> b = a * <span class="number">3</span></div><div class="line"><span class="keyword">var</span> c = b - <span class="number">4</span></div></pre></td></tr></table></figure>
-<p>函数式编程是这样的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result = sub(multi(<span class="number">3</span>,add(<span class="number">1</span>,<span class="number">2</span>)),<span class="number">4</span>)</div></pre></td></tr></table></figure>
-<p>函数式编程过程中，每个步骤都是单纯的表达式计算，都有返回值，和命令式语句say good bye，看起来是不是瞬间逼格提升了好多</p>
-<p>因此函数式编程语言中，函数并不神秘，其唯一作用就是对表达是求值。而函数式编程本身也就是不断的表达式计算求值的过程。</p>
-<h4 id="好处都有啥"><a href="#好处都有啥" class="headerlink" title="好处都有啥"></a>好处都有啥</h4><p>1.清楚直观，妈妈再也不用担心我为变量取名而绞尽脑汁了，贴近自然语言，易于维护，能够节省大量的代码量，上节的例子就很好的反映了这点</p>
-<p>2.没有副作用<br>这点需要解释一下，简而言之，函数式编程致力于保持函数的纯净，不包含任何对外部引用的操作，没有副作用的纯净函数即是引用透明的，所有的依赖都来自函数入参。可以将其看成一个黑盒，仅关心输入输出值即可。利用这一点，函数式编程能够进行很好的单元测试。<br>纯净函数:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>非纯净函数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用隐式的方式与外部进行数据交互</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	a = <span class="number">5</span></div><div class="line">	<span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>3.immutable 不可变</p>
-<p>程序员讨厌无法控制的东西，比如js中的对象。<br>ex:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;name:<span class="string">"cassie"</span>&#125;</div><div class="line"><span class="keyword">var</span> b = a</div><div class="line">b.name = <span class="string">"mike"</span></div><div class="line"><span class="built_in">console</span>.log(a) <span class="comment">// &#123;name:"mike"&#125;</span></div></pre></td></tr></table></figure>
-<p>函数式编程提倡将程序中变化的东西最小化，使用immutable的数据。从根本上可以防止一些灵异事件的发生，减少需要追踪的记录。并且由于数据的不可变，可以视其为状态机，通过递进状态与回朔状态来保证程序逻辑可控。react就是这么玩的。<br>js中为了实践Immutable，也出现了immutable.js这类框架。</p>
-<p>在不使用框架的前提下，结合es5,es6可以通过以下方式来保持immutable</p>
-<ul>
-<li>鼓励禁用var/let，所有东西都用const定义，强制immutable。但是注意const只能防止变量被赋值，引用对象的改变仍可以生效。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</div><div class="line">a.push(<span class="number">4</span>)</div><div class="line"><span class="built_in">console</span>.log（a） <span class="comment">// [1,2,3,4]</span></div></pre></td></tr></table></figure>
-<ul>
-<li><p>数组使用map,filter,reduce方法执行循环，使用concat代替push</p>
-</li>
-<li><p>对象使用assign 来产生新对象而非直接编辑对象</p>
-</li>
-</ul>
-<p>4.引用透明</p>
-<p>引用透明即如果提供同样的输入，那么函数总是返回同样的结果，概念和没有副作用差不多，他俩本身是息息相关的，但是却能够带来一个非常便利的特性。由于纯净函数不依赖于外部环境而只对传入参数进行表达式计算，那么我们就可以通过函数入参来保存函数运算过程中的状态，把所有状态整合到最后一次表达式计算中，也即尾调用。<br>以经典问题斐波那契数列为例。众所周知斐波那契数列的函数表达式为</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f(n) = f(n<span class="number">-1</span>) + f(n<span class="number">-2</span>)</div></pre></td></tr></table></figure>
-<p>用递归写出来是这样的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> n &lt; <span class="number">2</span> ? n : fib(n<span class="number">-1</span>) + fib(n<span class="number">-2</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>虽然方法看上去非常的优雅，但是n较大时递归会拖长整个调用栈从而溢出。然而函数式编程中通过函数入参来保存变量状态的思路能够很好地解决这个问题。只需要将本次递归中需要保存的状态直接扔到内层递归中去,这样堆栈调用记录中只有一项，杜绝了内存溢出的可能。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n,a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> n &lt; <span class="number">2</span> ? a : fib(n<span class="number">-1</span>,b,a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="函数Curry化"><a href="#函数Curry化" class="headerlink" title="函数Curry化"></a>函数Curry化</h4><p>此处Curry并非是勇士当家球星Steve Curry,而是一个著名的美国数学家、逻辑学家Haskell Curry。为了纪念这位先哲，便将Curry化的概念以其命名。</p>
-<p>为了介绍Curry化的概念，我们先来介绍一下高阶函数的概念。</p>
-<h5 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h5><p>何为高阶函数？先回想一个我们学过的数学知识：</p>
-<p><code>y‘ = g(x)</code> 对函数y=y(x)求导后其形式仍可表达为x的函数,代表一个函数到另一个函数的映射</p>
-<p>高阶函数的概念可以说与其基本一致，其形式可以表达为</p>
-<p><code>HOF: function =&gt; function</code></p>
-<p>表示成返回函数的函数，用js 描述一下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">HOF</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> doSomethind() &#123;</div><div class="line">		...x</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>了解了高阶函数后，再回到Curry化的话题上来,此处我们不以特定语言为载体，仅讨论编程思想</p>
-<p>先仍以add函数作为引子，以伪代码表示</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add: （a，b） =&gt; a + b</div></pre></td></tr></table></figure>
-<p>add函数接受两个参数，返回两者相加的值。</p>
-<p>那么如果我想add函数一次只接受一个变量，但仍然要完成add的功能怎么办，<br>其实只要把相加分步骤执行就可以了,表现为一个接受第二个参数并且返回两者相加函数的高阶函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add: a =&gt; ( b =&gt; a+b )</div></pre></td></tr></table></figure>
-<p>因此函数Curry化可以看成是这样一个过程</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curry: (a,b) =&gt; a + b  -&gt; a =&gt; b =&gt; a + b</div></pre></td></tr></table></figure>
-<p>那么问题又来了，Curry化的意义何在？在我刚开始学js时，学到Curry化这块觉得根本没什么卵用，但是现在被函数式编程思想有所启蒙以后发现这东西还是相当给力的。将多参的函数简化成一次仅处理一个参数的函数配合immutable可以很好的追踪变量来讨论代码中的问题，更好地去迎合单元测试。</p>
-<p>当然并不是所有场景都使用Curry化的。<br>个人认为当函数中的参数必须成对出现才有意义时，是不适用Curry化的。</p>
-<p>个人觉得Curry这种做法是为了更贴近元语言编程的习惯而制定的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/24/fp/" data-id="cjoifsjeg0000s384nhoswgi0" class="article-share-link">Поделиться</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/08/17/hello-world/" class="article-date">
-  <time datetime="2016-08-17T12:09:13.000Z" itemprop="datePublished">2016-08-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/17/hello-world/" data-id="cjoifsjep0001s3849d9bl0uw" class="article-share-link">Поделиться</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         
