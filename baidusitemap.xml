@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/fp.html</loc>
+    <loc>https://archerasdo.github.io/fp.html</loc>
     <lastmod>2018-11-16T04:09:39.000Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/tensorflowjs-knn%E5%AE%9E%E6%88%98.html</loc>
+    <loc>https://archerasdo.github.io/tensorflowjs-knn%E5%AE%9E%E6%88%98.html</loc>
     <lastmod>2018-11-16T04:09:34.000Z</lastmod>
   </url>
 </urlset>
