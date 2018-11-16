@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,16 +79,22 @@
 
 
 
-<meta name="description" content="算法储备笔记">
+<meta name="description" content="有序数组求等于某个数k的长度(k可能不存在于数组中)
+
+123456789101112131415161718192021function find(list = [], k, startIndex, endIndex) &amp;#123;	if (startIndex === endIndex) return [-1]	const mid = Math.floor((startIndex + end">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法储备-练习笔记(一)">
 <meta property="og:url" content="https://archerasdo.github.io/算法储备-一.html">
 <meta property="og:site_name" content="archersado的小站">
-<meta property="og:description" content="算法储备笔记">
-<meta property="og:updated_time" content="2018-11-16T08:53:03.000Z">
+<meta property="og:description" content="有序数组求等于某个数k的长度(k可能不存在于数组中)
+
+123456789101112131415161718192021function find(list = [], k, startIndex, endIndex) &amp;#123;	if (startIndex === endIndex) return [-1]	const mid = Math.floor((startIndex + end">
+<meta property="og:updated_time" content="2018-11-16T09:20:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法储备-练习笔记(一)">
-<meta name="twitter:description" content="算法储备笔记">
+<meta name="twitter:description" content="有序数组求等于某个数k的长度(k可能不存在于数组中)
+
+123456789101112131415161718192021function find(list = [], k, startIndex, endIndex) &amp;#123;	if (startIndex === endIndex) return [-1]	const mid = Math.floor((startIndex + end">
 
 
 
@@ -96,7 +102,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -184,7 +190,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
           </a>
         </li>
       
@@ -194,7 +220,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -226,7 +252,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-笔记" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -258,7 +284,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-16T16:50:52+08:00">
                 2018-11-16
@@ -279,7 +305,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -306,10 +332,6 @@
           
 
           
-              <div class="post-description">
-                  算法储备笔记
-              </div>
-          
 
         </div>
       </header>
@@ -331,7 +353,7 @@
 <ol>
 <li>二叉树深度</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTreeDepth</span>(<span class="params">tree</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span> (!tree) <span class="keyword">return</span> <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="keyword">const</span> leftDepth = getTreeDepth(tree.left)</div><div class="line">	<span class="keyword">const</span> rightDepth = getTreeDepth(tree.right)</div><div class="line"></div><div class="line">	<span class="keyword">return</span> (leftDepth &gt; rightDepth ? leftDepth : rightDepth) + <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTreeDepth</span><span class="params">(tree)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (!tree) <span class="keyword">return</span> <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="keyword">const</span> leftDepth = getTreeDepth(tree.left)</div><div class="line">	<span class="keyword">const</span> rightDepth = getTreeDepth(tree.right)</div><div class="line"></div><div class="line">	<span class="keyword">return</span> (leftDepth &gt; rightDepth ? leftDepth : rightDepth) + <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>3.</p>
 <p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
 <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
@@ -448,7 +470,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -457,10 +479,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
               </div>
             
 
@@ -470,7 +492,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 
               </div>
             
@@ -516,7 +538,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -524,7 +546,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -623,6 +645,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

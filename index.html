@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -95,7 +95,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -184,7 +184,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
           </a>
         </li>
       
@@ -194,7 +214,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -226,7 +246,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-笔记" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -260,7 +280,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-16T16:53:43+08:00">
                 2018-11-16
@@ -281,7 +301,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -323,14 +343,41 @@
 
       
         
-          算法储备笔记
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/算法储备-关联规则挖掘.html">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p>通过支持度（support）与置信度（confidence）来衡量。</p>
+<p>支持度：support(A–&gt;B) = |AB|/|N|</p>
+<p>商品A和B（如啤酒和尿布） 同时出现在同一个购物清单中的数量 / 总的购物清单数</p>
+<p>置信度：confidence(A–&gt;B) = |AB|/|A|</p>
+<p>同时出现在同一个购物清单中的数量/A出现的数量。即规则A–&gt;B的可信度。<br>可信度是对关联规则的准确度的衡量，支持度是对关联规则重要性的衡量。</p>
+<p>支持度说明了这条规则在所有事务中有多大的代表性，显然支持度越大，关联规则越重要。<br>出现就行，不考虑一个购物清单中啤酒的数量。</p>
+<p>还是使用apriori算法的购物车数据作为例子，如下图所示：</p>
+<p>TID为购物车项的编号，i1-i5为商品的编号</p>
+<p><img src="http://static.oschina.net/uploads/img/201504/24152001_bc9s.jpg" alt=""></p>
+<p>FPGrowth算法的基本思想是，首先扫描整个购物车数据表，计算每个商品的支持度，并从大到小从上往下排序，得到如下表所示<br><img src="http://static.oschina.net/uploads/img/201504/24152001_Y7MI.jpg" alt=""></p>
+<p>从底部最小支持度开始，逐一构建FP树</p>
+<p>构建过程如下图：</p>
+<p><img src="http://static.oschina.net/uploads/img/201504/24152001_she6.jpg" alt=""></p>
+<p>最终构建出的FP树如下图</p>
+<p><img src="http://static.oschina.net/uploads/img/201504/24152001_XhIK.jpg" alt=""></p>
+<p>将这个FP树和支持度表关联起来如下图：<br><img src="http://static.oschina.net/uploads/img/201504/24152002_H2x7.jpg" alt=""></p>
+<p>支持度表中的每一项都有一个存放指向FP树中对应节点的指针，例如第一行指向i2:7；第二行指向i1:4，因为i1节点还出现在FP树中的其他位置，所谓i1:4节点中还存放着指向i1:2节点的指针</p>
+<p>通过少数的全表扫描构建好的FP树将购物车没有规律的数据变成了一个有迹可循的树形结构，并且省去了进行巨大的自然连接的运算</p>
+<p>通过FP树挖掘出关联规则：</p>
+<p>通过上图的FP树，我们可以根据每个商品得到该商品对应的条件模式基，条件FP树和产生的频繁模式</p>
+<p>例如i5</p>
+<p>在FP树中可以看到，从根节点到i5:1的路径有两条：</p>
+<p>i2:7–&gt;i1:4–&gt;i5:1</p>
+<p>i2:7–&gt;i14–&gt;i3:2–&gt;i5:1</p>
+<p>i2:7–&gt;i1:4和i2:7–&gt;i14–&gt;i3:2就是i5的条件模式基，因为最终到达的节点肯定是i5，所以将i5省略<br>记为{i2,i1:1}{i2,i1,i3:1}，为什么每个条件模式基的计数为1呢？虽然i2和i1的计数都很大，但是由于i5的计数为1，最终到达i5的重复次数也只能为1。所以条件模式基的计数是根据路径中节点的最小计数来决定的</p>
+<p>根据条件模式基，我们可以得到该商品的条件FP树，例如i5：</p>
+<p><img src="http://static.oschina.net/uploads/img/201504/24152002_eZnr.jpg" alt=""></p>
+<p>根据条件FP树，我们可以进行全排列组合，得到挖掘出来的频繁模式（这里要将商品本身，如i5也算进去，每个商品挖掘出来的频繁模式必然包括这商品本身）</p>
+<p>根据FP树得到的全表如下：</p>
+<p><img src="http://static.oschina.net/uploads/img/201504/24152002_0Zd6.jpg" alt=""></p>
+<p>至此，FPGrowth算法输出的结果就是产生的频繁模式，FPGrowth算法使用的是分而治之的方式，将一颗可能十分巨大的树形结构通过构构建条件FP子树的方式分别处理</p>
+<p>但是在商品数据十分巨大的情况下，FPGrowth算法所构建的FP树可能会大到计算机内存都无法加载，这时就要使用分布式的FPGrowth，PFP算法来进行计算</p>
+
+          
         
       
     </div>
@@ -372,7 +419,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-笔记" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -406,7 +453,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-16T16:50:52+08:00">
                 2018-11-16
@@ -427,7 +474,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -469,14 +516,22 @@
 
       
         
-          算法储备笔记
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/算法储备-一.html">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <ol>
+<li>有序数组求等于某个数k的长度(k可能不存在于数组中)</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">find</span><span class="params">(list = [], k, startIndex, endIndex)</span> &#123;</span></div><div class="line">	<span class="keyword">if</span> (startIndex === endIndex) <span class="keyword">return</span> [-<span class="number">1</span>]</div><div class="line">	const mid = Math.<span class="built_in">floor</span>((startIndex + endIndex)/<span class="number">2</span>)</div><div class="line">	const midNum = <span class="keyword">list</span>[mid]</div><div class="line">	const prevIndex = mid - <span class="number">1</span></div><div class="line">	const nextIndex = mid + <span class="number">1</span></div><div class="line">	const <span class="keyword">prev</span> = <span class="keyword">list</span>[prevIndex]</div><div class="line">	const <span class="keyword">next</span> = <span class="keyword">list</span>[nextIndex]</div><div class="line"></div><div class="line"></div><div class="line">	<span class="keyword">if</span> (midNum === <span class="keyword">k</span> &amp;&amp; (<span class="keyword">prev</span> &lt; midNum || <span class="keyword">next</span> &gt; midNum)) &#123;</div><div class="line">		<span class="keyword">return</span> [ mid ]</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> [ ...<span class="keyword">find</span>(<span class="keyword">list</span>, <span class="keyword">k</span>, startIndex, prevIndex), ...<span class="keyword">find</span>(<span class="keyword">list</span>, <span class="keyword">k</span>, nextIndex, endIndex)].<span class="built_in">filter</span>(<span class="keyword">el</span> =&gt; <span class="keyword">el</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">a</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line">const idx = <span class="keyword">find</span>(<span class="keyword">a</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="keyword">a</span>.length - <span class="number">1</span>)</div><div class="line">const &#123; startIndex = <span class="number">0</span>, endIndex = <span class="number">0</span> &#125; = idx</div><div class="line">console.<span class="built_in">log</span>(idx.length === <span class="number">1</span> ? <span class="number">1</span>: endIndex-startIndex )</div></pre></td></tr></table></figure>
+<ol>
+<li>二叉树深度</li>
+</ol>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getTreeDepth</span><span class="params">(tree)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (!tree) <span class="keyword">return</span> <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="keyword">const</span> leftDepth = getTreeDepth(tree.left)</div><div class="line">	<span class="keyword">const</span> rightDepth = getTreeDepth(tree.right)</div><div class="line"></div><div class="line">	<span class="keyword">return</span> (leftDepth &gt; rightDepth ? leftDepth : rightDepth) + <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.</p>
+<p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p>Example:</p>
+<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8<br>Explanation: 342 + 465 = 807.</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addTwoNodeList</span>(</span>l1, l2) &#123;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> recursion(l1, l2, <span class="number">0</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">recursion</span>(</span>l1, l2, isAdd) &#123;</div><div class="line">	<span class="keyword">const</span> &#123; isAdd: needAdd, value &#125; = computeValue(l1, l2, isAdd)</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (!l1.<span class="keyword">next</span> &amp;&amp; !l2.<span class="keyword">next</span> &amp;&amp; !isAdd) &#123; </div><div class="line">		<span class="keyword">return</span> &#123; value, <span class="keyword">next</span>: <span class="literal">null</span> &#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> &#123; value, <span class="keyword">next</span>: recursion(l1.<span class="keyword">next</span>, l2.<span class="keyword">next</span>, needAdd) &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">computeValue</span>(</span>l1, l2, isAdd) &#123;</div><div class="line">	<span class="keyword">const</span> l1Value = l1 ? l1.value || <span class="number">0</span> : <span class="number">0</span></div><div class="line">	<span class="keyword">const</span> l2Value = l2 ? l2.value || <span class="number">0</span> : <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="keyword">return</span> &#123; value: (l1Value + l2Value + isAdd) % <span class="number">10</span>, isAdd: l1Value + l2Value + isAdd &gt; <span class="number">9</span> ? <span class="number">1</span> : <span class="number">0</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -518,7 +573,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-算法" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -552,7 +607,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-15T18:10:34+08:00">
                 2018-11-15
@@ -573,7 +628,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -615,14 +670,104 @@
 
       
         
-          前端基于tensorflowjs使用knn算法解决可视化搭建场景下渲染器和后台字段智能分类的问题
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/tensorflowjs-knn实战.html">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p>在机器学习和智能算法大热的时代，不甘于寂寞的前端同学们也开始涉足智能领域，各种sketch2code层出不穷，那么让我们从基础开始一步步揭开智能算法的神秘面纱。</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>在机器学习领域，一个实际场景的问题往往会被划分成回归、分类、聚类问题，其中又属分类问题最为常见。今天我们就来了解一下什么是分类、并且怎么解决一个分类问题。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>first of all.我们先来学习一下什么是分类。</p>
+<pre><code>“帝釐下土，方設居方，別生分類，作《汩作》。” 
+
+                                《書‧舜典》附亡《書》序
+</code></pre><p>意指将无序的事物按照种类、等级、特点或性质划分成一组相似的物品过程。人们从这样的过程中不断总结归纳形成了一门一同学科，分类学。分即鉴定、描述和命名，类即归类，按一定秩序排列类群，形成系统演化。例如生物学中的界、门、纲、目、科、属、种7个分类等级便是分类学在生物中的运用。</p>
+<h2 id="相似性"><a href="#相似性" class="headerlink" title="相似性"></a>相似性</h2><p>大家可以思考一下，按照直觉逻辑，你们的分类依据是什么？没错，物与物之间相似性。相似的东西我们会归在一起，南辕北辙的东西一定不在一个类别。那么相似性应该怎么量化呢。这里就是我们的重点了。</p>
+<h4 id="距离"><a href="#距离" class="headerlink" title="距离"></a>距离</h4><p>在涛涛历史长河中,人类的智慧在于总是能够将不同的经验总结抽样化归到另一个场景发光发热。物理学中，我们通过估计计算距离来对两个物体位置进行描述，数学中，我们通过距离这个计算函数来描述空间某些元素是否相互接近或者原理。那么如果我们能够将一个物品的种类、等级、特点通过空间中的一个元素来表示，元素之间的相似性是否就能够通过空间距离被量化出来了呢？</p>
+<h5 id="欧几里得距离"><a href="#欧几里得距离" class="headerlink" title="欧几里得距离"></a>欧几里得距离</h5><p>让我们回到公元前三世纪，伟大的数学家、几何学之父欧几里得通过证明毕达哥拉斯定理从而告诉了世界平面中任意两点的距离应该如何计算，史称欧几里得距离。后人成功论证了他在二维、三位空间距离的计算法适用于任何有限维度。</p>
+<p><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/96f6c0781636835ff7d0c2031785fd85bfdf63ae" alt=""></p>
+<p><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/e8518a4bd2334b23780a251a54df9c43fd67a26c" alt=""></p>
+<p>让我们回到刚刚的问题上来，空间中的两个元素之间的相似性能够被空间距离量化么？</p>
+<p>这里以data-mining中的例子来说明。以亚马逊中不同用户对两本书的评价为例。其中评价等级为0-5颗星。</p>
+<p><img src="https://github.com/Huayet/guidetodatamining/raw/master/img/chapter-2/chapter-2-4.png" alt=""></p>
+<p>由于是两本书的评价，我们可以将其置于二维空间中，以Snow Crash为横轴，Girl with the Dragon Tattoo为纵轴，可以绘制出如下坐标系</p>
+<p><img src="https://github.com/Huayet/guidetodatamining/raw/master/img/chapter-2/chapter-2-3.png" alt=""></p>
+<p>计算欧几里得距离我们得到</p>
+<p>D(Jim-Bill) = 2<br>D(Amy-Bill) = 3<br>D(Jim-Amy) = sqrt(17)</p>
+<p>根据计算可以发现 D(Jim-Bill) &lt; D(Amy-Bill) &lt; D(Jim-Amy)<br>因此我们认为Jim和Bill的阅读口味相似度较高，可以把他们划分到一个类别中。</p>
+<h5 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h5><p>在扩展到n维空间时(即本例中对n本书籍的评分)，欧几里得距离的计算会涉及海量的平方和开方运算，数量量大的时候计算速度明细下降。如果我们简化一下计算公式来近似表示距离的度量。由于勾股定理斜边长度仅与领边长度相关，那么距离的测量我们可以近似表示成</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/300px-Manhattan_distance.svg.png" alt=""></p>
+<p><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/5ab487e3c5724cc7a295b6e1d57afe9bd39a8744" alt=""></p>
+<p>这便是十九世纪由闵可夫斯基提出的曼哈顿距离，又称街区距离，也是目前我们地图路径规划的理论基础。</p>
+<h4 id="皮尔逊系数"><a href="#皮尔逊系数" class="headerlink" title="皮尔逊系数"></a>皮尔逊系数</h4><p>按照上面书籍评分的例子思考一下这个问题, 林子大了什么鸟都有，我们有三个风格迥然相异的用户。</p>
+<ul>
+<li>Bill没有打出极端的分数，都在2至4分之间；</li>
+<li>Jordyn似乎喜欢所有的乐队，打分都在4至5之间；</li>
+<li>Hailey是一个有趣的人，他的分数不是1就是4。</li>
+</ul>
+<p>那么这些用户间还能够直接通过我们的5分标准坐标轴计算距离来判别相似性么？Hailey打的4分对应与Jordyn的4分还是5分呢, 应该更接近5分吧。我们会发现当我们的变量量纲标准不一致的时候，仅仅用距离去计算相似性的方法效果好像就不好了。我们必须要去消除量纲的影响。</p>
+<h5 id="Z-score标准化"><a href="#Z-score标准化" class="headerlink" title="Z-score标准化"></a>Z-score标准化</h5><p>我们希望所有值能够落到一个标准的量化范围内。借助统计学中的经验，用z-score来计算标准分数</p>
+<p><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/5ceed701c4042bb34618535c9a902ca1a937a351" alt=""></p>
+<p>一个统计值减去均值再除以标准差，这样他的取值范围就落在了[-1, 1]之间，并且z的均值为0，标准差为1，无论量纲如何变化，都能被标准化到范围区间。</p>
+<p>我们将标准化后的特征量纲再代入到之前的欧氏距离计算中。</p>
+<p>设有两个向量<img src="https://www.zhihu.com/equation?tex=X%3D%5BX_1%2C+...X_n%5D" alt=""> 和 <img src="https://www.zhihu.com/equation?tex=Y%3D%5BY_1%2C+...Y_n%5D" alt=""> 维度相同为n.</p>
+<p>已知X与Y均作了标准化处理，因此均值ux，uy为0，标准差αx, αy为1。有</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%5E2%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-0%29%5E2%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-%5Cmu_X%29%5E2%7D%3D%28n-1%29%5Csigma_X%5E2%3Dn-1" alt=""></p>
+<p>当n趋近于无穷时<img src="https://www.zhihu.com/equation?tex=n-1%5Crightarrow+n" alt=""> 因此可得</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Csum_%7Bi%3D1%7D%5E%7Bt%7D%7BX_i%5E2%7D%3D%5Csum_%7Bi%3D1%7D%5E%7Bt%7D%7BY_i%5E2%7D%3D+n" alt=""></p>
+<p>回顾一下欧式距离的计算公式，为了简化运算，这里我们不做开方处理。</p>
+<p><img src="https://www.zhihu.com/equation?tex=d%28X%2CY%29%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_n-Y_n%29%5E2%7D" alt=""></p>
+<p>将上述结论带入欧式距离公式 </p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cbegin%7Bequation%7D+%5Cbegin%7Bsplit%7D+d%28X%2CY%29%26%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_n-Y_n%29%5E2%7D+%5C%5C+%26%3D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%7D%5E2+-+2+%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%2B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BY_i%7D%5E2+%5C%5C+%26%3D+2n+-+2+%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%5C%5C+%26%3D2n%281-%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%29%5C%5C+%26%3D2n%281-%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-0%29%28Y_i-0%29%7D%7D%7B1%5Ccdot1%7D%29%5C%5C+%26%3D2n%281-%5Cfrac%7BE%5B%28X-%5Cmu_X%29%28Y-%5Cmu_Y%29%5D%7D%7B%5Csigma_X%5Csigma_Y%7D%5C%5C+%26%3D+2n%281-%5Crho%28X%2CY%29%29+%5Cend%7Bsplit%7D+%5Cend%7Bequation%7D+" alt=""></p>
+<p>这里的</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Crho%28X%2CY%29%3D%5Cfrac%7BE%5B%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%5D%7D%7B%5Csigma_X%5Csigma_Y%7D+%3D%5Cfrac%7BE%5B%28X-%5Cmu_%7BX%7D%29%28Y-%5Cmu_%7BY%7D%29%5D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28X_i-%5Cmu_X%29%5E2%7D%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7B%28Y_i-%5Cmu_Y%29%5E2%7D%7D%7D" alt=""></p>
+<p>便是我们的皮尔逊系数了。可以发现皮尔逊系数其实就是标准化后的向量点积。让我们再按直觉逻辑算一下，距离越大，皮尔逊系数越小，距离越小皮尔逊系数越大。恩没问题。</p>
+<h4 id="余弦相似性"><a href="#余弦相似性" class="headerlink" title="余弦相似性"></a>余弦相似性</h4><p><img src="https://www.zhihu.com/equation?tex=c%28X%2CY%29%3D%5Cfrac%7BX%5Ccdot+Y%7D%7B%5Cleft%7C+X+%5Cright%7C%5Cleft%7C+Y+%5Cright%7C%7D+%3D%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%5E2%7D%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BY_i%5E2%7D%7D%7D" alt=""></p>
+<p>余弦相似给出了另一个角度的相似性解释。余弦相似并不关注数值的度量而是关注维度的度量，根据空间向量夹角来区分两个物体方向性的差异。余弦相似由于对数值不敏感，所以也<br>会面临之前评分标准的问题，因此我们会对余弦相似进行修正。对用户的评分标准进行减去均值的运算来平衡尺度差异。</p>
+<p><img src="https://www.biaodianfu.com/wp-content/uploads/2018/05/cos-formule.png" alt=""></p>
+<p>我们将标准化后的向量代入余弦公式</p>
+<p><img src="https://www.zhihu.com/equation?tex=c%28X%2CY%29%3D%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_iY_i%7D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BX_i%5E2%7D%7D%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%7BY_i%5E2%7D%7D%7D+%3D%5Cfrac%7Bz%28X%29%5Ccdot+z%28Y%29%7D%7B%5Cleft%7C+z%28X%29+%5Cright%7C%5Cleft%7C+z%28Y%29+%5Cright%7C%7D" alt=""></p>
+<p>惊奇的发现和欧几里得距离以及皮尔逊公式形式高度的一致，殊途同归了。</p>
+<h3 id="knn"><a href="#knn" class="headerlink" title="knn"></a>knn</h3><p>knn 又称k临近算法，在相似性计算的基础上，我们会筛选出最相似的k组记录并根据记录的分类结果进行投票。选举出最终的分类，</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>原理我们都懂了，快干起来吧。</p>
+<p>这里我们实现了一个从后台字段到前端渲染器匹配的一个场景。在我们的可视化系统中会将每一个后台接口的字段匹配到前端的一个组件渲染器上(最通用的例子就是列表页每一列的字段会对应一个列渲染器)。</p>
+<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><p>这里的特征工程非常简单，我们先将系统存储的所有有台字段进行分词并去重得到一张特征表</p>
+<p><img src="https://img.alicdn.com/tfs/TB1NJREopzqK1RjSZFoXXbfcXXa-182-439.png" alt=""></p>
+<p>根据系统中的记录的后台关键词，将关键词映射成shape为[1, 特征表长度]的一个稀疏矩阵。根据特征表，若后台字段包含特征表中的关键字，则该位置为1，否则置为0。</p>
+<h3 id="tensorflow接入"><a href="#tensorflow接入" class="headerlink" title="tensorflow接入"></a>tensorflow接入</h3><p>本次实践基于@tensorflow/tfjs-model/knn-classifier。knn-classifier分类器源码中两个关键流程如下所示</p>
+<h4 id="similarities"><a href="#similarities" class="headerlink" title="similarities"></a>similarities</h4><p>这个函数便是我们上面老生常谈的相似性计算</p>
+<p><img src="https://img.alicdn.com/tfs/TB14FCgpHvpK1RjSZFqXXcXUVXa-1001-968.png" alt=""></p>
+<p>逻辑其实也很简单先对，输入向量进行标准化，然后和训练集(在输入训练集时已被标准化)进行矩阵乘运算。这里的矩阵乘积其实对应的便是我们上文中提到的标准化后的皮尔逊定理和余弦角公式的分子。由于标准化后分母可以看成是一个常量，因此仅计算分子便可决定相似度。函数会返回一个一维向量, 或者我们可以看成是一个一维数组，数组每项的索引与训练集中的向量索引对应, 值代表着该训练向量与输入向量的相似得分(正相关)。</p>
+<h4 id="topK-amp-amp-calculateTopClass"><a href="#topK-amp-amp-calculateTopClass" class="headerlink" title="topK &amp;&amp; calculateTopClass"></a>topK &amp;&amp; calculateTopClass</h4><p>这两个函数真正意义上完成了knn的逻辑，完成了根据相似性排序并投票选举最终分类的过程。</p>
+<p>我们先来看下topK的源码</p>
+<p><img src="https://img.alicdn.com/tfs/TB1YjxToAzoK1RjSZFlXXai4VXa-536-343.png" alt=""></p>
+<p>将similarities计算所得的一维向量中每项的值和索引保存下来，根据值(相似度得分)排序得到降序数组，并取前k项返回。</p>
+<p>接下来返回的k项结果将会传入calculateTopClass进行投票选举，根据数据项中的索引找到k个数据项分别对应的类别标签分组，取标签分组比例最高的类别标签作为输入向量的最终分类。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1DhXRoAvoK1RjSZFNXXcxMVXa-690-782.png" alt=""></p>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><h4 id="等相似得分下分桶抽样优化"><a href="#等相似得分下分桶抽样优化" class="headerlink" title="等相似得分下分桶抽样优化"></a>等相似得分下分桶抽样优化</h4><p>在我们的实践场景中，由于特征向量非常稀疏的特性，发现常常会有等相似得分的情况，而knn-classifier源码中等相似得分情况下，默认是按照类别分组依次排序的。</p>
+<p>举个例子，训练集中分类1有100个向量，分类2有200个向量。在所有训练集向量和输入向量等相似性得分的情况下，输出的排序为</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ ...分类<span class="number">1</span>的<span class="number">100</span>项, ...分类<span class="number">2</span>的<span class="number">200</span>项]</div></pre></td></tr></table></figure>
+<p>此时只要k值小于100则分类结果一定为1。与事实相悖，等相似的情况下分类2的占比高于分类1, 结果为分类2的可能性更大。</p>
+<p>基于这样的问题，针对等相似等分情况进行了分桶抽样优化，使得输出的排序变为</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span> ....]</div></pre></td></tr></table></figure>
+<p>如图</p>
+<p><img src="https://img.alicdn.com/tfs/TB1sLpPoAvoK1RjSZFNXXcxMVXa-914-741.png" alt=""></p>
+<h4 id="投票权重策略优化优化"><a href="#投票权重策略优化优化" class="headerlink" title="投票权重策略优化优化"></a>投票权重策略优化优化</h4><p>knn-classifier的源码没有投票权重策略，在遇到对于不同相似得分k项均等同视之，在特征稀疏的情况下会出现以下的问题。</p>
+<p>假设k=3, 且三项的相似得分和记录为</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ &#123; <span class="string">similarity:</span> <span class="number">10</span>, <span class="string">label:</span> <span class="number">1</span> &#125; , &#123; <span class="string">similarity:</span> <span class="number">1</span>, <span class="string">label:</span> <span class="number">2</span> &#125;, &#123; <span class="string">similarity:</span> <span class="number">1</span>, <span class="string">label:</span> <span class="number">2</span> &#125; ]</div></pre></td></tr></table></figure>
+<p>时，分类结果为2。而实际的情况则是第一项更贴近我们的输入向量。因此引入了简易的相似性得分权重策略。如图。</p>
+<p><img src="https://img.alicdn.com/tfs/TB1oVJSosfpK1RjSZFOXXa6nFXa-1121-775.png" alt=""></p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>我们需要一个验证function来衡量我们的分类器表现，通过将总数据集拆分成测试集和训练集，通过分类结果和测试集本身标签对比来作为分类器的评价，个人提供了三种测试集抽样方式：随机抽样、等距抽样和十折验证，这里推荐使用十折验证法</p>
+<h5 id="十折验证法"><a href="#十折验证法" class="headerlink" title="十折验证法"></a>十折验证法</h5><p><img src="https://img.alicdn.com/tfs/TB1fOpSoq6qK1RjSZFmXXX0PFXa-1184-774.png" alt=""></p>
+<h5 id="计算混淆矩阵和表现系数"><a href="#计算混淆矩阵和表现系数" class="headerlink" title="计算混淆矩阵和表现系数"></a>计算混淆矩阵和表现系数</h5><p>通过计算混淆矩阵和kappa系数作为分类器评价指标。由于这些资料网上很全，就不多赘述了。(其实tensorflow自己就提供了confusionMatrix的计算api，写完才发现)</p>
+<p><img src="https://img.alicdn.com/tfs/TB1ZglTorvpK1RjSZPiXXbmwXXa-964-446.png" alt=""></p>
+<p><img src="https://img.alicdn.com/tfs/TB1x1tRosbpK1RjSZFyXXX_qFXa-1136-807.png" alt=""></p>
+<h2 id="关于代码"><a href="#关于代码" class="headerlink" title="关于代码"></a>关于代码</h2><p>所有代码已经开源至： <a href="https://github.com/archerasdo/tensorflow4js" target="_blank" rel="external">传送门</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zh.wiktionary.org/wiki/分类" target="_blank" rel="external">维基百科【分类】</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E5%87%A0%E4%BD%95" target="_blank" rel="external">维基百科【欧几里得几何】</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E5%B0%94%E9%80%8A%E7%A7%AF%E7%9F%A9%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0" target="_blank" rel="external">维基百科【皮尔逊积矩相关系数】</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%A8%99%E6%BA%96%E5%88%86%E6%95%B8" target="_blank" rel="external">维基百科【标准分数】</a></p>
+<p><a href="https://www.zhihu.com/question/19734616" target="_blank" rel="external">知乎【如何理解皮尔逊相关系数 高票回答】</a></p>
+<p><a href="https://github.com/Huayet/guidetodatamining/blob/master/chapter-2.md" target="_blank" rel="external">data-mining guide</a></p>
+<p><a href="https://github.com/tensorflow/tfjs-models/tree/master/knn-classifier" target="_blank" rel="external">github【tfjs-models/knn-classifier】</a></p>
+
+          
         
       
     </div>
@@ -664,7 +809,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-函数式编程" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -698,7 +843,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-24T13:55:54+08:00">
                 2016-09-24
@@ -719,7 +864,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -761,14 +906,64 @@
 
       
         
-          前端使用javascript函数式风格初探函数式编程的门路 非常基础
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/fp.html">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="函数式编程初探"><a href="#函数式编程初探" class="headerlink" title="函数式编程初探"></a>函数式编程初探</h3><p>让我们来看一下命令是编程和函数式编程的区别</p>
+<p>ex:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">（<span class="number">1</span> + <span class="number">2</span>）* <span class="number">3</span> - <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>过程式编程是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="number">1</span> + <span class="number">2</span></div><div class="line"><span class="keyword">var</span> b = a * <span class="number">3</span></div><div class="line"><span class="keyword">var</span> c = b - <span class="number">4</span></div></pre></td></tr></table></figure>
+<p>函数式编程是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result = sub(multi(<span class="number">3</span>,add(<span class="number">1</span>,<span class="number">2</span>)),<span class="number">4</span>)</div></pre></td></tr></table></figure>
+<p>函数式编程过程中，每个步骤都是单纯的表达式计算，都有返回值，和命令式语句say good bye，看起来是不是瞬间逼格提升了好多</p>
+<p>因此函数式编程语言中，函数并不神秘，其唯一作用就是对表达是求值。而函数式编程本身也就是不断的表达式计算求值的过程。</p>
+<h4 id="好处都有啥"><a href="#好处都有啥" class="headerlink" title="好处都有啥"></a>好处都有啥</h4><p>1.清楚直观，妈妈再也不用担心我为变量取名而绞尽脑汁了，贴近自然语言，易于维护，能够节省大量的代码量，上节的例子就很好的反映了这点</p>
+<p>2.没有副作用<br>这点需要解释一下，简而言之，函数式编程致力于保持函数的纯净，不包含任何对外部引用的操作，没有副作用的纯净函数即是引用透明的，所有的依赖都来自函数入参。可以将其看成一个黑盒，仅关心输入输出值即可。利用这一点，函数式编程能够进行很好的单元测试。<br>纯净函数:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>非纯净函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用隐式的方式与外部进行数据交互</span></div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">	a = <span class="number">5</span></div><div class="line">	<span class="keyword">return</span> a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.immutable 不可变</p>
+<p>程序员讨厌无法控制的东西，比如js中的对象。<br>ex:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;name:<span class="string">"cassie"</span>&#125;</div><div class="line"><span class="keyword">var</span> b = a</div><div class="line">b.name = <span class="string">"mike"</span></div><div class="line"><span class="built_in">console</span>.log(a) <span class="comment">// &#123;name:"mike"&#125;</span></div></pre></td></tr></table></figure>
+<p>函数式编程提倡将程序中变化的东西最小化，使用immutable的数据。从根本上可以防止一些灵异事件的发生，减少需要追踪的记录。并且由于数据的不可变，可以视其为状态机，通过递进状态与回朔状态来保证程序逻辑可控。react就是这么玩的。<br>js中为了实践Immutable，也出现了immutable.js这类框架。</p>
+<p>在不使用框架的前提下，结合es5,es6可以通过以下方式来保持immutable</p>
+<ul>
+<li>鼓励禁用var/let，所有东西都用const定义，强制immutable。但是注意const只能防止变量被赋值，引用对象的改变仍可以生效。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</div><div class="line">a.push(<span class="number">4</span>)</div><div class="line"><span class="built_in">console</span>.log（a） <span class="comment">// [1,2,3,4]</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>数组使用map,filter,reduce方法执行循环，使用concat代替push</p>
+</li>
+<li><p>对象使用assign 来产生新对象而非直接编辑对象</p>
+</li>
+</ul>
+<p>4.引用透明</p>
+<p>引用透明即如果提供同样的输入，那么函数总是返回同样的结果，概念和没有副作用差不多，他俩本身是息息相关的，但是却能够带来一个非常便利的特性。由于纯净函数不依赖于外部环境而只对传入参数进行表达式计算，那么我们就可以通过函数入参来保存函数运算过程中的状态，把所有状态整合到最后一次表达式计算中，也即尾调用。<br>以经典问题斐波那契数列为例。众所周知斐波那契数列的函数表达式为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f(n) = f(n<span class="number">-1</span>) + f(n<span class="number">-2</span>)</div></pre></td></tr></table></figure>
+<p>用递归写出来是这样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> n &lt; <span class="number">2</span> ? n : fib(n<span class="number">-1</span>) + fib(n<span class="number">-2</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>虽然方法看上去非常的优雅，但是n较大时递归会拖长整个调用栈从而溢出。然而函数式编程中通过函数入参来保存变量状态的思路能够很好地解决这个问题。只需要将本次递归中需要保存的状态直接扔到内层递归中去,这样堆栈调用记录中只有一项，杜绝了内存溢出的可能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n,a,b</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> n &lt; <span class="number">2</span> ? a : fib(n<span class="number">-1</span>,b,a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="函数Curry化"><a href="#函数Curry化" class="headerlink" title="函数Curry化"></a>函数Curry化</h4><p>此处Curry并非是勇士当家球星Steve Curry,而是一个著名的美国数学家、逻辑学家Haskell Curry。为了纪念这位先哲，便将Curry化的概念以其命名。</p>
+<p>为了介绍Curry化的概念，我们先来介绍一下高阶函数的概念。</p>
+<h5 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h5><p>何为高阶函数？先回想一个我们学过的数学知识：</p>
+<p><code>y‘ = g(x)</code> 对函数y=y(x)求导后其形式仍可表达为x的函数,代表一个函数到另一个函数的映射</p>
+<p>高阶函数的概念可以说与其基本一致，其形式可以表达为</p>
+<p><code>HOF: function =&gt; function</code></p>
+<p>表示成返回函数的函数，用js 描述一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">HOF</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> doSomethind() &#123;</div><div class="line">		...x</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>了解了高阶函数后，再回到Curry化的话题上来,此处我们不以特定语言为载体，仅讨论编程思想</p>
+<p>先仍以add函数作为引子，以伪代码表示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add: （a，b） =&gt; a + b</div></pre></td></tr></table></figure>
+<p>add函数接受两个参数，返回两者相加的值。</p>
+<p>那么如果我想add函数一次只接受一个变量，但仍然要完成add的功能怎么办，<br>其实只要把相加分步骤执行就可以了,表现为一个接受第二个参数并且返回两者相加函数的高阶函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add: a =&gt; ( b =&gt; a+b )</div></pre></td></tr></table></figure>
+<p>因此函数Curry化可以看成是这样一个过程</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curry: (a,b) =&gt; a + b  -&gt; a =&gt; b =&gt; a + b</div></pre></td></tr></table></figure>
+<p>那么问题又来了，Curry化的意义何在？在我刚开始学js时，学到Curry化这块觉得根本没什么卵用，但是现在被函数式编程思想有所启蒙以后发现这东西还是相当给力的。将多参的函数简化成一次仅处理一个参数的函数配合immutable可以很好的追踪变量来讨论代码中的问题，更好地去迎合单元测试。</p>
+<p>当然并不是所有场景都使用Curry化的。<br>个人认为当函数中的参数必须成对出现才有意义时，是不适用Curry化的。</p>
+<p>个人觉得Curry这种做法是为了更贴近元语言编程的习惯而制定的。</p>
+
+          
         
       
     </div>
@@ -849,7 +1044,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -858,10 +1053,10 @@
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
               </div>
             
 
@@ -871,7 +1066,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 
               </div>
             
@@ -917,7 +1112,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -925,7 +1120,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -1024,6 +1219,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
 
