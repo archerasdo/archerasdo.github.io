@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /2016/
-Allow: /2018/
-Allow: /archives/
-Disallow: /js/
-Disallow: /css/
